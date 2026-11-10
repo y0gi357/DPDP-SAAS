@@ -1,0 +1,1587 @@
+{
+  "label": "v1.1-draft",
+  "description": "DRAFT v1.1: clarifies the two SDF audit controls as data audit, following S.O. 5458(E) (2026), and annotates Rule 4 commencement under Rule 1(3), as corrected by G.S.R. 892(E). Rule 4 date annotations do not determine the commencement of linked Act provisions or automatically change applicability/scoring. Qualified legal review is still required before reliance.",
+  "sections": [
+    {
+      "key": "SEC-3",
+      "title": "Sec 3 - Scope and Applicability",
+      "order": 1
+    },
+    {
+      "key": "SEC-4",
+      "title": "Sec 4 - Grounds for Processing",
+      "order": 2
+    },
+    {
+      "key": "SEC-5",
+      "title": "Sec 5 - Notice",
+      "order": 3
+    },
+    {
+      "key": "SEC-6",
+      "title": "Sec 6 - Consent",
+      "order": 4
+    },
+    {
+      "key": "RULE-4",
+      "title": "Rule 4 - Consent Managers",
+      "order": 5
+    },
+    {
+      "key": "SEC-7",
+      "title": "Sec 7 - Certain Legitimate Uses",
+      "order": 6
+    },
+    {
+      "key": "SEC-8",
+      "title": "Sec 8 - General Obligations of Data Fiduciary",
+      "order": 7
+    },
+    {
+      "key": "SEC-9",
+      "title": "Sec 9 - Children and Persons with Disability",
+      "order": 8
+    },
+    {
+      "key": "SEC-10",
+      "title": "Sec 10 - Significant Data Fiduciary",
+      "order": 9
+    },
+    {
+      "key": "SEC-11-14",
+      "title": "Sec 11-14 - Rights of Data Principal",
+      "order": 10
+    },
+    {
+      "key": "SEC-15",
+      "title": "Sec 15 - Duties of Data Principal",
+      "order": 11
+    },
+    {
+      "key": "SEC-16",
+      "title": "Sec 16 - Transfer Outside India",
+      "order": 12
+    },
+    {
+      "key": "SEC-17",
+      "title": "Sec 17 - Exemptions",
+      "order": 13
+    },
+    {
+      "key": "SEC-18-28",
+      "title": "Sec 18-28 - Data Protection Board of India",
+      "order": 14
+    },
+    {
+      "key": "SEC-29-33",
+      "title": "Sec 29-33 - Appeals and Penalties",
+      "order": 15
+    }
+  ],
+  "controls": [
+    {
+      "code": "DPDP-3-001",
+      "section": "SEC-3",
+      "title": "Determine whether each processing activity is covered by the Act: digital personal data, or non-digital data later digitised, processed in India",
+      "actRefs": [
+        "Sec 3(a)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-3-002",
+      "section": "SEC-3",
+      "title": "Identify processing outside India that is connected with offering goods or services to Data Principals in India",
+      "actRefs": [
+        "Sec 3(b)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-3-003",
+      "section": "SEC-3",
+      "title": "Confirm which data falls outside the Act: personal or domestic use, and data made public by the Data Principal or under a legal obligation",
+      "actRefs": [
+        "Sec 3(c)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-3-004",
+      "section": "SEC-3",
+      "title": "Keep a dated record of the applicability assessment and revisit it when products, markets or data flows change",
+      "actRefs": [
+        "Sec 3"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-4-001",
+      "section": "SEC-4",
+      "title": "Process personal data only for a lawful purpose, and only with the Data Principal's consent or for a Sec 7 legitimate use",
+      "actRefs": [
+        "Sec 4(1)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-4-002",
+      "section": "SEC-4",
+      "title": "Check that no stated purpose is expressly forbidden by law",
+      "actRefs": [
+        "Sec 4(2)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-4-003",
+      "section": "SEC-4",
+      "title": "Record the ground (consent, or the specific Sec 7 limb) for every processing activity in the RoPA",
+      "actRefs": [
+        "Sec 4(1)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-5-001",
+      "section": "SEC-5",
+      "title": "Give the Data Principal a notice with, or before, every request for consent",
+      "actRefs": [
+        "Sec 5(1)"
+      ],
+      "ruleRefs": [
+        "Rule 3"
+      ],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-5-002",
+      "section": "SEC-5",
+      "title": "Notice itemises the personal data to be processed and the specific purpose",
+      "actRefs": [
+        "Sec 5(1)(i)"
+      ],
+      "ruleRefs": [
+        "Rule 3"
+      ],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-5-003",
+      "section": "SEC-5",
+      "title": "Notice explains how to withdraw consent and how to use the grievance redressal route",
+      "actRefs": [
+        "Sec 5(1)(ii)"
+      ],
+      "ruleRefs": [
+        "Rule 3"
+      ],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-5-004",
+      "section": "SEC-5",
+      "title": "Notice explains how to make a complaint to the Board",
+      "actRefs": [
+        "Sec 5(1)(iii)"
+      ],
+      "ruleRefs": [
+        "Rule 3"
+      ],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-5-005",
+      "section": "SEC-5",
+      "title": "Notice is in clear, plain language and stands on its own instead of being buried in other terms",
+      "actRefs": [
+        "Sec 5(1)"
+      ],
+      "ruleRefs": [
+        "Rule 3"
+      ],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-5-006",
+      "section": "SEC-5",
+      "title": "Notice gives an itemised description of the goods, services or uses that the processing enables",
+      "actRefs": [
+        "Sec 5(1)"
+      ],
+      "ruleRefs": [
+        "Rule 3"
+      ],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-5-007",
+      "section": "SEC-5",
+      "title": "Notice gives a working link or other means to withdraw consent and exercise rights",
+      "actRefs": [
+        "Sec 5(1)"
+      ],
+      "ruleRefs": [
+        "Rule 3"
+      ],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-5-008",
+      "section": "SEC-5",
+      "title": "Notice is available in English or any Eighth Schedule language on request",
+      "actRefs": [
+        "Sec 5(3)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-5-009",
+      "section": "SEC-5",
+      "title": "For consent given before the Act commenced, send a notice as soon as practicable and continue processing only until consent is withdrawn",
+      "actRefs": [
+        "Sec 5(2)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-6-001",
+      "section": "SEC-6",
+      "title": "Consent is free, specific, informed, unconditional and unambiguous, given by a clear affirmative action",
+      "actRefs": [
+        "Sec 6(1)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-6-002",
+      "section": "SEC-6",
+      "title": "Consent covers only the personal data necessary for the specified purpose",
+      "actRefs": [
+        "Sec 6(1)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-6-003",
+      "section": "SEC-6",
+      "title": "Every consent request is accompanied or preceded by the notice",
+      "actRefs": [
+        "Sec 6(3)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-6-004",
+      "section": "SEC-6",
+      "title": "Consent request is available in English or any Eighth Schedule language",
+      "actRefs": [
+        "Sec 6(3)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-6-005",
+      "section": "SEC-6",
+      "title": "Consent request gives the contact details of the DPO or designated person",
+      "actRefs": [
+        "Sec 6(3)"
+      ],
+      "ruleRefs": [
+        "Rule 9"
+      ],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-6-006",
+      "section": "SEC-6",
+      "title": "No consent term is relied on if it limits rights or breaches the Act; such a term is not binding",
+      "actRefs": [
+        "Sec 6(2)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-6-007",
+      "section": "SEC-6",
+      "title": "Withdrawing consent is as easy as giving it",
+      "actRefs": [
+        "Sec 6(4)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-6-008",
+      "section": "SEC-6",
+      "title": "Withdrawal does not undo earlier lawful processing, and the Data Principal bears the consequences of withdrawing",
+      "actRefs": [
+        "Sec 6(5)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-6-009",
+      "section": "SEC-6",
+      "title": "On withdrawal, processing stops and Data Processors are made to stop within a reasonable time, unless law requires retention",
+      "actRefs": [
+        "Sec 6(6)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-6-010",
+      "section": "SEC-6",
+      "title": "Records exist to prove that notice was given and consent obtained",
+      "actRefs": [
+        "Sec 6(10)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-R4-001",
+      "section": "RULE-4",
+      "title": "Consent Managers register with the Board as an Indian company meeting the prescribed conditions",
+      "actRefs": [
+        "Sec 6(9)"
+      ],
+      "ruleRefs": [
+        "Rule 4 (commencement: 13 November 2026; Rule 1(3))"
+      ],
+      "audience": [
+        "CM"
+      ],
+      "commencement": {
+        "provision": "Rule 4",
+        "date": "2026-11-13",
+        "basis": "Rule 1(3), as corrected by G.S.R. 892(E)",
+        "scope": "Rule 4 only; linked Act obligations must be assessed under their own commencement provisions."
+      }
+    },
+    {
+      "code": "DPDP-R4-002",
+      "section": "RULE-4",
+      "title": "Consent Manager acts for the Data Principal and is free of conflicts of interest with Data Fiduciaries",
+      "actRefs": [
+        "Sec 6(8)"
+      ],
+      "ruleRefs": [
+        "Rule 4 (commencement: 13 November 2026; Rule 1(3))"
+      ],
+      "audience": [
+        "CM"
+      ],
+      "commencement": {
+        "provision": "Rule 4",
+        "date": "2026-11-13",
+        "basis": "Rule 1(3), as corrected by G.S.R. 892(E)",
+        "scope": "Rule 4 only; linked Act obligations must be assessed under their own commencement provisions."
+      }
+    },
+    {
+      "code": "DPDP-R4-003",
+      "section": "RULE-4",
+      "title": "Provide an accessible, interoperable platform to give, manage, review and withdraw consent",
+      "actRefs": [
+        "Sec 6(7)"
+      ],
+      "ruleRefs": [
+        "Rule 4 (commencement: 13 November 2026; Rule 1(3))"
+      ],
+      "audience": [
+        "CM"
+      ],
+      "commencement": {
+        "provision": "Rule 4",
+        "date": "2026-11-13",
+        "basis": "Rule 1(3), as corrected by G.S.R. 892(E)",
+        "scope": "Rule 4 only; linked Act obligations must be assessed under their own commencement provisions."
+      }
+    },
+    {
+      "code": "DPDP-R4-004",
+      "section": "RULE-4",
+      "title": "Keep records of consents, notices and data sharing, and make them available to the Data Principal",
+      "actRefs": [
+        "Sec 6(7)"
+      ],
+      "ruleRefs": [
+        "Rule 4 (commencement: 13 November 2026; Rule 1(3))"
+      ],
+      "audience": [
+        "CM"
+      ],
+      "commencement": {
+        "provision": "Rule 4",
+        "date": "2026-11-13",
+        "basis": "Rule 1(3), as corrected by G.S.R. 892(E)",
+        "scope": "Rule 4 only; linked Act obligations must be assessed under their own commencement provisions."
+      }
+    },
+    {
+      "code": "DPDP-R4-005",
+      "section": "RULE-4",
+      "title": "Pass personal data between parties in a form the Consent Manager itself cannot read",
+      "actRefs": [
+        "Sec 6(7)"
+      ],
+      "ruleRefs": [
+        "Rule 4 (commencement: 13 November 2026; Rule 1(3))"
+      ],
+      "audience": [
+        "CM"
+      ],
+      "commencement": {
+        "provision": "Rule 4",
+        "date": "2026-11-13",
+        "basis": "Rule 1(3), as corrected by G.S.R. 892(E)",
+        "scope": "Rule 4 only; linked Act obligations must be assessed under their own commencement provisions."
+      }
+    },
+    {
+      "code": "DPDP-R4-006",
+      "section": "RULE-4",
+      "title": "Before accepting consent relayed by a Consent Manager, confirm it is registered, and honour consents and withdrawals it relays",
+      "actRefs": [
+        "Sec 6(8)"
+      ],
+      "ruleRefs": [
+        "Rule 4 (commencement: 13 November 2026; Rule 1(3))",
+        "Rule 4 date only; linked fiduciary Act obligations have separate commencement provisions"
+      ],
+      "audience": [
+        "FIDUCIARY"
+      ],
+      "commencement": {
+        "provision": "Rule 4",
+        "date": "2026-11-13",
+        "basis": "Rule 1(3), as corrected by G.S.R. 892(E)",
+        "scope": "Rule 4 only; linked Act obligations must be assessed under their own commencement provisions."
+      }
+    },
+    {
+      "code": "DPDP-7-001",
+      "section": "SEC-7",
+      "title": "Sec 7(a): where data was voluntarily provided for a specified purpose with no objection, use it only for that purpose",
+      "actRefs": [
+        "Sec 7(a)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-7-002",
+      "section": "SEC-7",
+      "title": "Sec 7(b): State subsidy, benefit, service, certificate or licence is processed only within the notified standards",
+      "actRefs": [
+        "Sec 7(b)"
+      ],
+      "ruleRefs": [
+        "Rule 5"
+      ],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-7-003",
+      "section": "SEC-7",
+      "title": "Sec 7(c): performance of State functions, or processing for sovereignty, integrity or security, is tied to a law",
+      "actRefs": [
+        "Sec 7(c)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-7-004",
+      "section": "SEC-7",
+      "title": "Sec 7(d): disclosure required by law is limited to what the legal obligation demands",
+      "actRefs": [
+        "Sec 7(d)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-7-005",
+      "section": "SEC-7",
+      "title": "Sec 7(e): processing to comply with a judgment, decree or order is documented against that order",
+      "actRefs": [
+        "Sec 7(e)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-7-006",
+      "section": "SEC-7",
+      "title": "Sec 7(f): processing in a medical emergency threatening life is limited to the emergency and recorded",
+      "actRefs": [
+        "Sec 7(f)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-7-007",
+      "section": "SEC-7",
+      "title": "Sec 7(g): processing during an epidemic or public-health threat is limited to the response",
+      "actRefs": [
+        "Sec 7(g)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-7-008",
+      "section": "SEC-7",
+      "title": "Sec 7(h): processing during a disaster or breakdown of public order is limited to the assistance or safety measures needed",
+      "actRefs": [
+        "Sec 7(h)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-7-009",
+      "section": "SEC-7",
+      "title": "Sec 7(i): processing for employment, or to protect the employer from loss or liability, is documented and proportionate",
+      "actRefs": [
+        "Sec 7(i)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-8-001",
+      "section": "SEC-8",
+      "title": "The Data Fiduciary is accountable for compliance, including for processing done by its Data Processors",
+      "actRefs": [
+        "Sec 8(1)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-8-002",
+      "section": "SEC-8",
+      "title": "Data Processors are engaged only under a valid written contract",
+      "actRefs": [
+        "Sec 8(2)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-8-003",
+      "section": "SEC-8",
+      "title": "Processor contracts set the purpose, safeguards, breach duties and control over sub-processors",
+      "actRefs": [
+        "Sec 8(2)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-8-004",
+      "section": "SEC-8",
+      "title": "Data is kept complete, accurate and consistent where it drives decisions about a Data Principal or is shared with another fiduciary",
+      "actRefs": [
+        "Sec 8(3)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-8-005",
+      "section": "SEC-8",
+      "title": "Technical and organisational measures are in place to ensure the Act is observed effectively",
+      "actRefs": [
+        "Sec 8(4)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-8-006",
+      "section": "SEC-8",
+      "title": "Reasonable security safeguards protect personal data in your possession or under your control from breach",
+      "actRefs": [
+        "Sec 8(5)"
+      ],
+      "ruleRefs": [
+        "Rule 6"
+      ],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-8-007",
+      "section": "SEC-8",
+      "title": "Personal data is encrypted, obfuscated or masked, or replaced with virtual tokens",
+      "actRefs": [
+        "Sec 8(5)"
+      ],
+      "ruleRefs": [
+        "Rule 6(1)(a)"
+      ],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-8-008",
+      "section": "SEC-8",
+      "title": "Access to systems and personal data is controlled and limited to those who need it",
+      "actRefs": [
+        "Sec 8(5)"
+      ],
+      "ruleRefs": [
+        "Rule 6(1)(b)"
+      ],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-8-009",
+      "section": "SEC-8",
+      "title": "Logging, monitoring and review give visibility to detect unauthorised access and to investigate it",
+      "actRefs": [
+        "Sec 8(5)"
+      ],
+      "ruleRefs": [
+        "Rule 6(1)(c)"
+      ],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-8-010",
+      "section": "SEC-8",
+      "title": "Backups and continuity measures let you recover data after loss, destruction or compromise",
+      "actRefs": [
+        "Sec 8(5)"
+      ],
+      "ruleRefs": [
+        "Rule 6(1)(d)"
+      ],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-8-011",
+      "section": "SEC-8",
+      "title": "Logs and relevant personal data are kept for at least one year to detect, investigate and remedy",
+      "actRefs": [
+        "Sec 8(5)"
+      ],
+      "ruleRefs": [
+        "Rule 6(1)(e)"
+      ],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-8-012",
+      "section": "SEC-8",
+      "title": "Contracts with Data Processors require them to apply the same safeguards",
+      "actRefs": [
+        "Sec 8(5)"
+      ],
+      "ruleRefs": [
+        "Rule 6(1)(f)"
+      ],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-8-013",
+      "section": "SEC-8",
+      "title": "Technical and organisational measures for effective observance of the safeguards are documented and reviewed",
+      "actRefs": [
+        "Sec 8(5)"
+      ],
+      "ruleRefs": [
+        "Rule 6(1)(g)"
+      ],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-8-014",
+      "section": "SEC-8",
+      "title": "A breach response process exists and Data Processors must report breaches to the Data Fiduciary",
+      "actRefs": [
+        "Sec 8(6)"
+      ],
+      "ruleRefs": [
+        "Rule 7"
+      ],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-8-015",
+      "section": "SEC-8",
+      "title": "Each affected Data Principal is told of a breach without delay: what happened, the likely harm, steps taken, steps they can take, and a contact",
+      "actRefs": [
+        "Sec 8(6)"
+      ],
+      "ruleRefs": [
+        "Rule 7(1)"
+      ],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-8-016",
+      "section": "SEC-8",
+      "title": "The Board is told of a breach without delay, with a detailed report within 72 hours",
+      "actRefs": [
+        "Sec 8(6)"
+      ],
+      "ruleRefs": [
+        "Rule 7(2)"
+      ],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-8-017",
+      "section": "SEC-8",
+      "title": "Personal data is erased, and Data Processors are made to erase it, once consent is withdrawn or the purpose is no longer served, unless law requires retention",
+      "actRefs": [
+        "Sec 8(7)"
+      ],
+      "ruleRefs": [
+        "Rule 8"
+      ],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-8-018",
+      "section": "SEC-8",
+      "title": "Where the Rules require it, personal data, traffic data and logs are retained for the minimum period",
+      "actRefs": [
+        "Sec 8(7)"
+      ],
+      "ruleRefs": [
+        "Rule 8"
+      ],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-8-019",
+      "section": "SEC-8",
+      "title": "For the classes of fiduciary named in the Rules, data is erased after the prescribed inactivity period and the Data Principal is warned beforehand",
+      "actRefs": [
+        "Sec 8(7)"
+      ],
+      "ruleRefs": [
+        "Rule 8"
+      ],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-8-020",
+      "section": "SEC-8",
+      "title": "Business contact details of the DPO or designated person are published",
+      "actRefs": [
+        "Sec 8(9)"
+      ],
+      "ruleRefs": [
+        "Rule 9"
+      ],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-8-021",
+      "section": "SEC-8",
+      "title": "A grievance redressal mechanism exists and responses are given inside the prescribed period",
+      "actRefs": [
+        "Sec 8(10)"
+      ],
+      "ruleRefs": [
+        "Rule 14(3)"
+      ],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-8-022",
+      "section": "SEC-8",
+      "title": "Data Principals are directed to the grievance mechanism first, before they approach the Board",
+      "actRefs": [
+        "Sec 8(11)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-9-001",
+      "section": "SEC-9",
+      "title": "Verifiable consent of a parent or lawful guardian is obtained before processing a child's personal data",
+      "actRefs": [
+        "Sec 9(1)"
+      ],
+      "ruleRefs": [
+        "Rule 10"
+      ],
+      "audience": [
+        "FIDUCIARY",
+        "CHILDREN"
+      ]
+    },
+    {
+      "code": "DPDP-9-002",
+      "section": "SEC-9",
+      "title": "Verifiable consent of the lawful guardian is obtained before processing the data of a person with a disability who cannot decide for themselves",
+      "actRefs": [
+        "Sec 9(1)"
+      ],
+      "ruleRefs": [
+        "Rule 11"
+      ],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-9-003",
+      "section": "SEC-9",
+      "title": "Due diligence checks that the person giving consent is an identifiable adult who is the child's parent or guardian",
+      "actRefs": [
+        "Sec 9(1)"
+      ],
+      "ruleRefs": [
+        "Rule 10"
+      ],
+      "audience": [
+        "FIDUCIARY",
+        "CHILDREN"
+      ]
+    },
+    {
+      "code": "DPDP-9-004",
+      "section": "SEC-9",
+      "title": "No processing is carried out that is likely to harm a child's well-being",
+      "actRefs": [
+        "Sec 9(2)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY",
+        "CHILDREN"
+      ]
+    },
+    {
+      "code": "DPDP-9-005",
+      "section": "SEC-9",
+      "title": "No tracking, behavioural monitoring or targeted advertising is directed at children, subject to the notified exemptions",
+      "actRefs": [
+        "Sec 9(3)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY",
+        "CHILDREN"
+      ]
+    },
+    {
+      "code": "DPDP-9-006",
+      "section": "SEC-9",
+      "title": "Where an exemption for a class of fiduciary or purpose is relied on, the class and conditions are documented",
+      "actRefs": [
+        "Sec 9(4)"
+      ],
+      "ruleRefs": [
+        "Rule 12"
+      ],
+      "audience": [
+        "FIDUCIARY",
+        "CHILDREN"
+      ]
+    },
+    {
+      "code": "DPDP-10-001",
+      "section": "SEC-10",
+      "title": "Assess whether the organisation could be notified as a Significant Data Fiduciary, based on volume and sensitivity of data and risk to Data Principals",
+      "actRefs": [
+        "Sec 10(1)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-10-002",
+      "section": "SEC-10",
+      "title": "Appoint a DPO based in India who answers to the Board or similar governing body and is the point of contact for grievances",
+      "actRefs": [
+        "Sec 10(2)(a)"
+      ],
+      "ruleRefs": [
+        "Rule 13"
+      ],
+      "audience": [
+        "FIDUCIARY",
+        "SDF"
+      ]
+    },
+    {
+      "code": "DPDP-10-003",
+      "section": "SEC-10",
+      "title": "Appoint an independent data auditor to evaluate compliance",
+      "actRefs": [
+        "Sec 10(2)(b)"
+      ],
+      "ruleRefs": [
+        "Rule 13"
+      ],
+      "audience": [
+        "FIDUCIARY",
+        "SDF"
+      ]
+    },
+    {
+      "code": "DPDP-10-004",
+      "section": "SEC-10",
+      "title": "Carry out periodic Data Protection Impact Assessments",
+      "actRefs": [
+        "Sec 10(2)(c)"
+      ],
+      "ruleRefs": [
+        "Rule 13"
+      ],
+      "audience": [
+        "FIDUCIARY",
+        "SDF"
+      ]
+    },
+    {
+      "code": "DPDP-10-005",
+      "section": "SEC-10",
+      "title": "Carry out periodic data audits and take other measures required by the Act",
+      "actRefs": [
+        "Sec 10(2)(c)"
+      ],
+      "ruleRefs": [
+        "Rule 13"
+      ],
+      "audience": [
+        "FIDUCIARY",
+        "SDF"
+      ]
+    },
+    {
+      "code": "DPDP-10-006",
+      "section": "SEC-10",
+      "title": "Complete the DPIA and data audit every 12 months and give the Board a report of significant observations",
+      "actRefs": [
+        "Sec 10(2)(c)"
+      ],
+      "ruleRefs": [
+        "Rule 13"
+      ],
+      "audience": [
+        "FIDUCIARY",
+        "SDF"
+      ]
+    },
+    {
+      "code": "DPDP-10-007",
+      "section": "SEC-10",
+      "title": "Verify that algorithmic software used on personal data does not put Data Principals at risk, and apply any data localisation the Government specifies",
+      "actRefs": [
+        "Sec 10(2)"
+      ],
+      "ruleRefs": [
+        "Rule 13"
+      ],
+      "audience": [
+        "FIDUCIARY",
+        "SDF"
+      ]
+    },
+    {
+      "code": "DPDP-11-001",
+      "section": "SEC-11-14",
+      "title": "Data Principals can get a summary of their personal data and the processing carried out",
+      "actRefs": [
+        "Sec 11(1)"
+      ],
+      "ruleRefs": [
+        "Rule 14"
+      ],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-11-002",
+      "section": "SEC-11-14",
+      "title": "Data Principals can learn who their data has been shared with and what was shared",
+      "actRefs": [
+        "Sec 11(1)"
+      ],
+      "ruleRefs": [
+        "Rule 14"
+      ],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-12-001",
+      "section": "SEC-11-14",
+      "title": "Data Principals can have inaccurate or misleading data corrected, incomplete data completed, and data updated",
+      "actRefs": [
+        "Sec 12(1)"
+      ],
+      "ruleRefs": [
+        "Rule 14"
+      ],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-12-002",
+      "section": "SEC-11-14",
+      "title": "Data Principals can have data erased unless retention is needed for the purpose or by law",
+      "actRefs": [
+        "Sec 12(3)"
+      ],
+      "ruleRefs": [
+        "Rule 14"
+      ],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-13-001",
+      "section": "SEC-11-14",
+      "title": "Readily available grievance redressal means exist, and a response is given within the prescribed period",
+      "actRefs": [
+        "Sec 13"
+      ],
+      "ruleRefs": [
+        "Rule 14(3)"
+      ],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-14-001",
+      "section": "SEC-11-14",
+      "title": "Data Principals can nominate another person to exercise their rights on death or incapacity",
+      "actRefs": [
+        "Sec 14"
+      ],
+      "ruleRefs": [
+        "Rule 14"
+      ],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-15-001",
+      "section": "SEC-15",
+      "title": "Communications remind Data Principals to comply with applicable laws when exercising their rights",
+      "actRefs": [
+        "Sec 15(a)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-15-002",
+      "section": "SEC-15",
+      "title": "Identity is checked so nobody can impersonate another person when providing or changing data",
+      "actRefs": [
+        "Sec 15(b)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-15-003",
+      "section": "SEC-15",
+      "title": "A defined procedure handles false or frivolous grievances and complaints",
+      "actRefs": [
+        "Sec 15(d)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-15-004",
+      "section": "SEC-15",
+      "title": "Correction and erasure requests are accepted only with verifiably authentic information",
+      "actRefs": [
+        "Sec 15(e)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-16-001",
+      "section": "SEC-16",
+      "title": "Transfers of personal data outside India are checked against the countries the Government has restricted",
+      "actRefs": [
+        "Sec 16(1)"
+      ],
+      "ruleRefs": [
+        "Rule 15"
+      ],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-16-002",
+      "section": "SEC-16",
+      "title": "Any sector law that gives stronger protection or tighter transfer limits is identified and followed",
+      "actRefs": [
+        "Sec 16(2)"
+      ],
+      "ruleRefs": [
+        "Rule 15"
+      ],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-17-001",
+      "section": "SEC-17",
+      "title": "Where rights and duties are set aside to enforce a legal right or claim, the reliance is documented",
+      "actRefs": [
+        "Sec 17(1)(a)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-17-002",
+      "section": "SEC-17",
+      "title": "Processing by courts, tribunals and regulators for judicial or regulatory functions is identified",
+      "actRefs": [
+        "Sec 17(1)(b)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-17-003",
+      "section": "SEC-17",
+      "title": "Processing to prevent, detect, investigate or prosecute offences is documented against the exemption",
+      "actRefs": [
+        "Sec 17(1)(c)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-17-004",
+      "section": "SEC-17",
+      "title": "Where an Indian processor handles data of people outside India under a foreign contract, the exemption and its limits are recorded",
+      "actRefs": [
+        "Sec 17(1)(d)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-17-005",
+      "section": "SEC-17",
+      "title": "Processing under an approved merger, demerger or similar arrangement is documented",
+      "actRefs": [
+        "Sec 17(1)(e)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-17-006",
+      "section": "SEC-17",
+      "title": "Processing to ascertain the financial position, assets or liabilities of a defaulter is documented",
+      "actRefs": [
+        "Sec 17(1)(f)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-17-007",
+      "section": "SEC-17",
+      "title": "Processing for research, archiving or statistics follows the prescribed standards and is not used to decide about an individual",
+      "actRefs": [
+        "Sec 17(2)(b)"
+      ],
+      "ruleRefs": [
+        "Rule 16"
+      ],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-17-008",
+      "section": "SEC-17",
+      "title": "If the organisation falls under a notified start-up or class exemption, the notification and its scope are recorded",
+      "actRefs": [
+        "Sec 17(3)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-18-001",
+      "section": "SEC-18-28",
+      "title": "Name a person who receives and answers Board notices, directions and requests",
+      "actRefs": [
+        "Sec 27"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-18-002",
+      "section": "SEC-18-28",
+      "title": "Be able to produce records and information the Board may require during an inquiry",
+      "actRefs": [
+        "Sec 27"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-18-003",
+      "section": "SEC-18-28",
+      "title": "Carry out Board directions on urgent remedial or mitigation measures after a breach",
+      "actRefs": [
+        "Sec 27(1)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-18-004",
+      "section": "SEC-18-28",
+      "title": "A process exists to answer Data Principal complaints that reach the Board",
+      "actRefs": [
+        "Sec 27",
+        "Sec 8(11)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY"
+      ]
+    },
+    {
+      "code": "DPDP-18-005",
+      "section": "SEC-18-28",
+      "title": "The team can engage with the Board's digital process for filings, hearings and orders",
+      "actRefs": [
+        "Sec 28"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-29-001",
+      "section": "SEC-29-33",
+      "title": "A process exists to appeal a Board order to the Appellate Tribunal within the time limit",
+      "actRefs": [
+        "Sec 29"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-29-002",
+      "section": "SEC-29-33",
+      "title": "Board directions and decisions are logged and their compliance tracked",
+      "actRefs": [
+        "Sec 29"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-29-003",
+      "section": "SEC-29-33",
+      "title": "Appellate Tribunal orders are complied with, and relevant records are preserved while an appeal is open",
+      "actRefs": [
+        "Sec 29",
+        "Sec 30"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-31-001",
+      "section": "SEC-29-33",
+      "title": "Policy exists on using mediation or other dispute resolution when the Board proposes it",
+      "actRefs": [
+        "Sec 31"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-32-001",
+      "section": "SEC-29-33",
+      "title": "Policy exists for deciding when to offer a voluntary undertaking to the Board, and for honouring one",
+      "actRefs": [
+        "Sec 32"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-33-001",
+      "section": "SEC-29-33",
+      "title": "A penalty exposure register maps obligations to the Schedule's penalty bands",
+      "actRefs": [
+        "Sec 33"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-33-002",
+      "section": "SEC-29-33",
+      "title": "Evidence of mitigation, remediation and good faith is kept, because the Board weighs it when setting a penalty",
+      "actRefs": [
+        "Sec 33(2)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-33-003",
+      "section": "SEC-29-33",
+      "title": "The organisation can respond to a Board inquiry, which must be held before any penalty is imposed",
+      "actRefs": [
+        "Sec 33(1)"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    },
+    {
+      "code": "DPDP-33-004",
+      "section": "SEC-29-33",
+      "title": "The Board or governing body receives periodic reporting on DPDPA exposure and remediation progress",
+      "actRefs": [
+        "Sec 33"
+      ],
+      "ruleRefs": [],
+      "audience": [
+        "FIDUCIARY",
+        "PROCESSOR"
+      ]
+    }
+  ]
+}

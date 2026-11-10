@@ -1,0 +1,35 @@
+{
+  "label": "starter-v0.1",
+  "description": "STARTER DRAFT written for scaffolding. Must be reviewed by qualified counsel against the Act and the current Rules before use with customers.",
+  "sections": [
+    { "key": "SEC-5", "title": "Sec 5 - Notice", "order": 1 },
+    { "key": "SEC-6", "title": "Sec 6 - Consent", "order": 2 },
+    { "key": "SEC-8", "title": "Sec 8 - General Obligations of Data Fiduciary", "order": 3 },
+    { "key": "SEC-9", "title": "Sec 9 - Children and Persons with Disability", "order": 4 },
+    { "key": "SEC-10", "title": "Sec 10 - Significant Data Fiduciary", "order": 5 },
+    { "key": "SEC-11-14", "title": "Sec 11-14 - Rights of Data Principal", "order": 6 },
+    { "key": "SEC-16", "title": "Sec 16 - Cross-border Transfer", "order": 7 }
+  ],
+  "controls": [
+    { "code": "DPDP-5-001", "section": "SEC-5", "title": "Give each Data Principal a notice at or before the point of requesting consent", "actRefs": ["Sec 5(1)"], "ruleRefs": ["Rule 3"] },
+    { "code": "DPDP-5-002", "section": "SEC-5", "title": "Notice itemises the personal data processed and the specific purpose", "actRefs": ["Sec 5(1)"], "ruleRefs": ["Rule 3"] },
+    { "code": "DPDP-5-003", "section": "SEC-5", "title": "Notice explains how to withdraw consent, exercise rights and complain to the Board", "actRefs": ["Sec 5(1)"], "ruleRefs": ["Rule 3"] },
+    { "code": "DPDP-6-001", "section": "SEC-6", "title": "Consent is free, specific, informed, unconditional and unambiguous, given by clear affirmative action, and limited to data necessary for the purpose", "actRefs": ["Sec 6(1)"], "ruleRefs": [] },
+    { "code": "DPDP-6-002", "section": "SEC-6", "title": "Withdrawing consent is as easy as giving it", "actRefs": ["Sec 6(4)"], "ruleRefs": [] },
+    { "code": "DPDP-6-003", "section": "SEC-6", "title": "On withdrawal, processing stops and Data Processors are made to stop, unless law requires retention", "actRefs": ["Sec 6(6)"], "ruleRefs": [] },
+    { "code": "DPDP-6-004", "section": "SEC-6", "title": "Records exist to prove that notice was given and consent obtained", "actRefs": ["Sec 6(10)"], "ruleRefs": [] },
+    { "code": "DPDP-8-001", "section": "SEC-8", "title": "Data Processors engaged only under a valid written contract", "actRefs": ["Sec 8(2)"], "ruleRefs": [] },
+    { "code": "DPDP-8-002", "section": "SEC-8", "title": "Reasonable security safeguards implemented (encryption or masking, access control, logging and monitoring, backups)", "actRefs": ["Sec 8(5)"], "ruleRefs": ["Rule 6"] },
+    { "code": "DPDP-8-003", "section": "SEC-8", "title": "Breach response process notifies the Board and affected Data Principals within the prescribed timelines", "actRefs": ["Sec 8(6)"], "ruleRefs": ["Rule 7"] },
+    { "code": "DPDP-8-004", "section": "SEC-8", "title": "Personal data is erased when the purpose is served or consent is withdrawn, unless law requires retention", "actRefs": ["Sec 8(7)"], "ruleRefs": ["Rule 8"] },
+    { "code": "DPDP-8-005", "section": "SEC-8", "title": "Business contact of the DPO or designated person is published", "actRefs": ["Sec 8(9)"], "ruleRefs": ["Rule 9"] },
+    { "code": "DPDP-8-006", "section": "SEC-8", "title": "Grievance redressal mechanism is available and responses are tracked against the prescribed period", "actRefs": ["Sec 8(10)"], "ruleRefs": ["Rule 14"] },
+    { "code": "DPDP-9-001", "section": "SEC-9", "title": "Verifiable consent of a parent or lawful guardian obtained before processing a child's data", "actRefs": ["Sec 9(1)"], "ruleRefs": ["Rule 10"] },
+    { "code": "DPDP-9-002", "section": "SEC-9", "title": "No tracking, behavioural monitoring or targeted advertising directed at children, subject to notified exemptions", "actRefs": ["Sec 9(3)"], "ruleRefs": [] },
+    { "code": "DPDP-10-001", "section": "SEC-10", "title": "Significant Data Fiduciary: India-based DPO, independent data auditor, and periodic DPIA and audit", "actRefs": ["Sec 10(2)"], "ruleRefs": ["Rule 13"] },
+    { "code": "DPDP-11-001", "section": "SEC-11-14", "title": "Data Principals can obtain a summary of their data and the parties it is shared with", "actRefs": ["Sec 11"], "ruleRefs": ["Rule 14"] },
+    { "code": "DPDP-12-001", "section": "SEC-11-14", "title": "Data Principals can request correction, completion, updating and erasure", "actRefs": ["Sec 12"], "ruleRefs": ["Rule 14"] },
+    { "code": "DPDP-14-001", "section": "SEC-11-14", "title": "Data Principals can nominate another person to exercise rights on death or incapacity", "actRefs": ["Sec 14"], "ruleRefs": ["Rule 14"] },
+    { "code": "DPDP-16-001", "section": "SEC-16", "title": "Cross-border transfers comply with restrictions notified by the Central Government", "actRefs": ["Sec 16"], "ruleRefs": ["Rule 15"] }
+  ]
+}

@@ -1,0 +1,593 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Role {
+  OWNER
+  ADMIN
+  SPOC
+  AUDITOR
+}
+
+// APPLICATION / DATABASE / FILE_STORE are legacy values kept so existing rows stay valid.
+enum AssetType {
+  APPLICATION
+  DATABASE
+  FILE_STORE
+  SAAS
+  OTHER
+  INTERNAL_DB
+  MOBILE_APP
+  SPREADSHEET
+  ONPREM_APP
+  CLOUD_STORAGE
+  DATA_WAREHOUSE
+}
+
+enum Sourcing {
+  IN_HOUSE
+  OUTSOURCED
+}
+
+enum VendorAccess {
+  FULL_ACCESS
+  LIMITED_ACCESS
+  HOSTING_ONLY
+  ANONYMISED_ONLY
+}
+
+// OTHER is legacy; kept so existing rows stay valid.
+enum VendorRole {
+  PROCESSOR
+  SUB_PROCESSOR
+  JOINT_FIDUCIARY
+  OTHER
+  INDEPENDENT_CONTROLLER
+}
+
+enum RiskTier {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+// LEGITIMATE_USE is legacy. The rest map to Sec 6 (consent) and Sec 7(a)-(i).
+enum LegalBasis {
+  CONSENT
+  LEGITIMATE_USE
+  VOLUNTARY
+  STATE_BENEFIT
+  STATE_FUNCTION
+  LEGAL_OBLIGATION
+  COURT_ORDER
+  MEDICAL_EMERGENCY
+  EPIDEMIC
+  DISASTER
+  EMPLOYMENT
+}
+
+enum RopaRole {
+  DATA_FIDUCIARY
+  DATA_PROCESSOR
+}
+
+enum GapStatus {
+  OPEN
+  IN_PROGRESS
+  ADDRESSED
+  ACCEPTED
+}
+
+enum DpiaStatus {
+  DRAFT
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+}
+
+enum BreachStatus {
+  OPEN
+  CONTAINED
+  CLOSED
+}
+
+enum ControlStatus {
+  NOT_ASSESSED
+  PLANNED
+  NOT_IMPLEMENTED
+  PARTIAL
+  IMPLEMENTED
+  NOT_APPLICABLE
+}
+
+// ---------- Global (not tenant-scoped) ----------
+
+model User {
+  id                String       @id @default(cuid())
+  email             String       @unique
+  name              String
+  passwordHash      String
+  emailVerifiedAt   DateTime?
+  passwordChangedAt DateTime?    // sessions issued before this are rejected
+  failedLogins      Int          @default(0)
+  lockedUntil       DateTime?
+  createdAt         DateTime     @default(now())
+  memberships       Membership[]
+  authTokens        AuthToken[]
+}
+
+enum AuthTokenType {
+  VERIFY_EMAIL
+  RESET_PASSWORD
+}
+
+// One-time links sent by email. Only a hash of the token is stored.
+model AuthToken {
+  id        String        @id @default(cuid())
+  userId    String
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      AuthTokenType
+  tokenHash String        @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime      @default(now())
+
+  @@index([userId, type])
+}
+
+// Fixed-window counters for rate limiting, shared across app instances.
+model RateLimit {
+  key     String   @id
+  count   Int
+  resetAt DateTime
+}
+
+// Versioned legal content. Written only by the owner role (seed/import), read-only for the app.
+model ControlLibraryVersion {
+  id          String           @id @default(cuid())
+  label       String           @unique
+  description String?
+  isActive    Boolean          @default(false)
+  createdAt   DateTime         @default(now())
+  sections    ControlSection[]
+  controls    Control[]
+}
+
+model ControlSection {
+  id               String                @id @default(cuid())
+  libraryVersionId String
+  libraryVersion   ControlLibraryVersion  @relation(fields: [libraryVersionId], references: [id], onDelete: Cascade)
+  key              String
+  title            String
+  order            Int
+  controls         Control[]
+
+  @@unique([libraryVersionId, key])
+}
+
+model Control {
+  id               String                @id @default(cuid())
+  libraryVersionId String
+  libraryVersion   ControlLibraryVersion  @relation(fields: [libraryVersionId], references: [id], onDelete: Cascade)
+  sectionId        String
+  section          ControlSection        @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  code             String
+  title            String
+  actRefs          String[]
+  ruleRefs         String[]
+  audience         String[]              // FIDUCIARY, PROCESSOR, SDF, CHILDREN, CM: who the control applies to
+  assessments      ControlAssessment[]
+
+  @@unique([libraryVersionId, code])
+}
+
+// ---------- Tenant-scoped (protected by row-level security, see prisma/rls.sql) ----------
+
+model Organisation {
+  id        String       @id
+  name      String
+  industry  String?
+  actsAsFiduciary Boolean    @default(true)
+  actsAsProcessor Boolean    @default(false)
+  isSDF     Boolean      @default(false) // only if a Data Fiduciary AND notified by the Central Government
+  legalName         String?
+  registrationNo    String?
+  address           String?
+  website           String?
+  employeeCount     Int?
+  dpoName           String?
+  dpoEmail          String?
+  dpoPhone          String?
+  grievanceEmail    String?
+  handlesChildrenData Boolean @default(false)
+  transfersAbroad     Boolean @default(false)
+  createdAt DateTime     @default(now())
+  members   Membership[]
+}
+
+model Membership {
+  id     String       @id @default(cuid())
+  orgId  String
+  org    Organisation @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  userId String
+  user   User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role   Role
+
+  @@unique([orgId, userId])
+  @@index([userId])
+}
+
+// Invitation to join an organisation. Only a hash of the token is stored.
+model Invitation {
+  id         String    @id @default(cuid())
+  orgId      String
+  email      String
+  role       Role
+  tokenHash  String    @unique
+  invitedBy  String?
+  expiresAt  DateTime
+  acceptedAt DateTime?
+  revokedAt  DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@index([orgId])
+}
+
+model ControlAssessment {
+  id        String        @id @default(cuid())
+  orgId     String
+  controlId String
+  control   Control       @relation(fields: [controlId], references: [id])
+  status    ControlStatus @default(NOT_ASSESSED)
+  evidence  String?
+  owners    String[]      // "dept:<id>" (department SPOC) or "member:<id>" (committee member)
+  targetDate DateTime?
+  updatedAt DateTime      @updatedAt
+  updatedBy String?
+
+  @@unique([orgId, controlId])
+  @@index([orgId])
+}
+
+model CommitteeMember {
+  id          String        @id @default(cuid())
+  orgId       String
+  name        String
+  email       String?
+  designation String? // one of SENIOR_DESIGNATIONS (enforced in the app)
+  function    String?     // function / department
+  createdAt   DateTime    @default(now())
+
+  @@index([orgId])
+}
+
+model Department {
+  id        String       @id @default(cuid())
+  orgId     String
+  name      String
+  headName  String?
+  spocName  String?
+  spocEmail String?
+  createdAt DateTime     @default(now())
+  assets    DataAsset[]
+  ropa      RopaRecord[]
+
+  @@unique([orgId, name])
+}
+
+model DataAsset {
+  id                 String       @id @default(cuid())
+  orgId              String
+  name               String
+  type               AssetType    @default(SAAS)
+  description        String?
+  departmentId       String?
+  department         Department?  @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+  ownerName          String?
+  hostingLocation    String?
+  hostedInIndia      Boolean      @default(true)
+  storesPersonalData Boolean      @default(true)
+  sourcing           Sourcing     @default(IN_HOUSE)
+  vendorId           String?
+  vendor             Vendor?      @relation(fields: [vendorId], references: [id], onDelete: SetNull)
+  vendorAccess       VendorAccess?
+  dataCategories     String[]
+  piiFields          String[]
+  createdAt          DateTime     @default(now())
+  ropaLinks          RopaAsset[]
+
+  @@unique([orgId, name])
+}
+
+model Vendor {
+  id               String         @id @default(cuid())
+  orgId            String
+  name             String
+  type             String         @default("SaaS Platform")
+  service          String?
+  role             VendorRole     @default(PROCESSOR)
+  country          String?        @default("India")
+  riskTier         RiskTier       @default(MEDIUM)
+  lastReview       DateTime?
+  dataCategories   String[]
+  contactName      String?
+  contactEmail     String?
+  hasContract      Boolean        @default(false) // DPA / Sec 8(2) contract executed
+  contractExpiry   DateTime?
+  breachClause     Boolean        @default(false) // vendor must notify breaches within 24h
+  certifications   String[]
+  securityControls String[]
+  dsrContact       String?
+  dsrChannel       String         @default("Email")
+  dsrSla           String         @default("30 days")
+  createdAt        DateTime       @default(now())
+  ropaLinks        RopaVendor[]
+  assets           DataAsset[]
+  subProcessors    SubProcessor[]
+
+  @@unique([orgId, name])
+}
+
+model SubProcessor {
+  id        String  @id @default(cuid())
+  orgId     String
+  vendorId  String
+  vendor    Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  name      String
+  purpose   String?
+  country   String?
+  dpaSigned Boolean @default(false)
+
+  @@index([orgId])
+  @@index([vendorId])
+}
+
+// Record of Processing Activities: the hub that DPIA and gap analysis will read from.
+model RopaRecord {
+  id                 String       @id @default(cuid())
+  orgId              String
+  activity           String
+  purpose            String
+  purposeCategory    String?
+  departmentId       String?
+  department         Department?  @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+  principalCategory  String       @default("Customer")
+  role               RopaRole     @default(DATA_FIDUCIARY)
+  piiFields          String[]
+  dataCategories     String[]
+  source             String?
+  storage            String?
+  retention          String?
+  legalBasis         LegalBasis   @default(CONSENT)
+  otherParties       String[]
+  crossBorder        Boolean      @default(false)
+  crossBorderCountry String?
+  controlEval        Json?        // checklist item id -> Met | Partial | Not met
+  techDetails        Json?        // encryption / access / logging / backup notes
+  notes              String?
+  autoGenerated      Boolean      @default(false)
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+  assets             RopaAsset[]
+  vendors            RopaVendor[]
+  dpias              Dpia[]
+
+  @@index([orgId])
+}
+
+model RopaAsset {
+  ropaId  String
+  ropa    RopaRecord @relation(fields: [ropaId], references: [id], onDelete: Cascade)
+  assetId String
+  asset   DataAsset  @relation(fields: [assetId], references: [id], onDelete: Cascade)
+  orgId   String
+
+  @@id([ropaId, assetId])
+  @@index([orgId])
+}
+
+model RopaVendor {
+  ropaId   String
+  ropa     RopaRecord @relation(fields: [ropaId], references: [id], onDelete: Cascade)
+  vendorId String
+  vendor   Vendor     @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  orgId    String
+
+  @@id([ropaId, vendorId])
+  @@index([orgId])
+}
+
+// Remediation tracking for a detected gap. Gaps themselves are derived live; this stores the work on them.
+model GapTracking {
+  id        String    @id @default(cuid())
+  orgId     String
+  gapKey    String
+  status    GapStatus @default(OPEN)
+  owners    String[]  // "dept:<id>" or "member:<id>"
+  dueDate   DateTime?
+  notes     String?
+  updatedBy String?
+  updatedAt DateTime  @updatedAt
+
+  @@unique([orgId, gapKey])
+  @@index([orgId])
+}
+
+model Dpia {
+  id            String     @id @default(cuid())
+  orgId         String
+  ropaId        String?
+  ropa          RopaRecord? @relation(fields: [ropaId], references: [id], onDelete: SetNull)
+  activity      String
+  department    String?
+  riskLevel     String     // Low | Medium | High at generation time
+  riskScore     Int
+  riskFactors   Json
+  necessity     String
+  proportionality String
+  mitigations   String[]
+  residualLevel RiskTier   @default(MEDIUM)
+  residualNote  String?
+  reviewNotes   String?
+  status        DpiaStatus @default(DRAFT)
+  auto          Boolean    @default(true)
+  sdfMandated   Boolean    @default(false)
+  outdated      Boolean    @default(false) // risk level changed after review began
+  approverRef   String?    // "member:<committee member id>"
+  approvedAt    DateTime?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  @@index([orgId])
+}
+
+// One row per organisation: notice settings and the consent-platform checklist.
+model ConsentConfig {
+  id             String   @id @default(cuid())
+  orgId          String   @unique
+  rightsPortalUrl String?
+  crossBorderText String?
+  dataItems      String[] // overrides the items derived from the RoPA when non-empty
+  purposes       String[]
+  cmp            Json?    // checklist item id -> YES | PARTIAL | NO | NA
+  cmpNotes       String?
+  updatedAt      DateTime @updatedAt
+}
+
+// Personal data breach register (Sec 8(6), Rule 7).
+model Breach {
+  id                   String       @id @default(cuid())
+  orgId                String
+  title                String
+  detectedAt           DateTime
+  nature               String       // e.g. unauthorised access, loss, ransomware
+  description          String
+  dataAffected         String?
+  principalsAffected   Int?
+  boardIntimatedAt     DateTime?    // initial intimation to the Board
+  principalsIntimatedAt DateTime?
+  detailedReportAt     DateTime?    // detailed report to the Board (within 72 hours)
+  status               BreachStatus @default(OPEN)
+  rootCause            String?
+  measures             String?
+  createdAt            DateTime     @default(now())
+  updatedAt            DateTime     @updatedAt
+
+  @@index([orgId])
+}
+
+// Append-only: the app role has no UPDATE/DELETE on this table.
+model AuditLog {
+  id        String   @id @default(cuid())
+  orgId     String
+  userId    String?
+  action    String
+  entity    String
+  entityId  String?
+  meta      Json?
+  createdAt DateTime @default(now())
+
+  @@index([orgId, createdAt])
+}
+
+// Business consent management. This does not represent Board registration as a Consent Manager.
+enum ConsentChoice {
+  GRANTED
+  DENIED
+  WITHDRAWN
+}
+
+model ConsentPurpose {
+  id         String @id @default(cuid())
+  orgId      String
+  key        String
+  active     Boolean @default(true)
+  targets    String[]
+  createdAt  DateTime @default(now())
+  notices    ConsentNotice[]
+  events     ConsentEvent[]
+
+  @@unique([orgId, id])
+  @@unique([orgId, key])
+  @@index([orgId])
+}
+
+// Published snapshots are immutable, including the wording and data items shown to the person.
+model ConsentNotice {
+  id          String @id @default(cuid())
+  orgId       String
+  purposeId   String
+  purpose     ConsentPurpose @relation(fields: [orgId, purposeId], references: [orgId, id])
+  version     Int
+  title       String
+  description String
+  dataItems   String[]
+  text        String
+  language    String @default("en")
+  publishedAt DateTime @default(now())
+  publishedBy String
+  targets     String[] @default([]) // immutable systems/processor snapshot for withdrawal routing
+  events      ConsentEvent[]
+
+  @@unique([orgId, purposeId, id])
+  @@unique([orgId, purposeId, version])
+  @@index([orgId])
+}
+
+model ConsentSubject {
+  id             String @id @default(cuid())
+  orgId          String
+  email          String
+  reference      String?
+  tokenHash      String? @unique
+  tokenExpiresAt DateTime?
+  revision       Int @default(0)
+  createdAt      DateTime @default(now())
+  events         ConsentEvent[]
+
+  @@unique([orgId, id])
+  @@unique([orgId, email])
+  @@index([orgId])
+}
+
+// Append-only decisions: staff cannot create decisions on a customer's behalf.
+model ConsentEvent {
+  id         String @id @default(cuid())
+  orgId      String
+  subjectId  String
+  subject    ConsentSubject @relation(fields: [orgId, subjectId], references: [orgId, id])
+  purposeId  String
+  purpose    ConsentPurpose @relation(fields: [orgId, purposeId], references: [orgId, id])
+  noticeId   String
+  notice     ConsentNotice @relation(fields: [orgId, purposeId, noticeId], references: [orgId, purposeId, id])
+  revision   Int
+  choice     ConsentChoice
+  source     String @default("CUSTOMER_PORTAL")
+  createdAt  DateTime @default(now())
+  tasks      ConsentWithdrawalTask[]
+
+  @@unique([orgId, id])
+  @@unique([orgId, subjectId, revision])
+  @@index([orgId, subjectId, purposeId, revision])
+}
+
+// Manual follow-up queue; creating a task does not stop processing in another system.
+model ConsentWithdrawalTask {
+  id             String @id @default(cuid())
+  orgId          String
+  eventId        String
+  event          ConsentEvent @relation(fields: [orgId, eventId], references: [orgId, id])
+  target         String
+  createdAt      DateTime @default(now())
+  acknowledgedAt DateTime?
+  acknowledgedBy String?
+  note           String?
+
+  @@index([orgId])
+}
