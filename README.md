@@ -64,11 +64,9 @@ When adding a tenant table, add an `orgId` index, enable and force RLS in `prism
 
 The controls are draft content for qualified legal review, including applicability and commencement dates. This software does not establish legal compliance or Board registration as a Consent Manager. Consent withdrawal follow-up is manual. MFA, SSO, billing, automatic processor notifications, guardian verification and a production retention/deletion workflow are not implemented. Library upgrades that must preserve the current assessment view require assessment carry-forward by control code.
 
-## Uploading to GitHub
+## Licence
 
-Commit the source, all Prisma migrations, `prisma/rls.sql`, control-library JSON files, tests, `package.json`, `package-lock.json` and `.env.example`. Exclude `.env` and other local environment files, private keys, database dumps, logs, uploads, `node_modules` and `.next`; the project `.gitignore` covers these common paths. Inspect staged files before pushing. If a secret was ever committed, removing the file or adding an ignore rule does not remove it from history.
-
-First-party project code is licensed under [Apache-2.0](LICENSE). Third-party dependencies retain their own licences. See [third-party review](docs/THIRD_PARTY.md). Apache-2.0 permits commercial use under its terms; this public version remains available under those terms even if later development becomes private. No paid edition or enterprise-only module is implemented by this release preparation.
+First-party project code is licensed under [Apache-2.0](LICENSE). Third-party dependencies retain their own licences. See [third-party review](docs/THIRD_PARTY.md). Apache-2.0 permits commercial use under its terms; this public version remains available under those terms even if later development becomes private.
 
 ## Business consent management
 
