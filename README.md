@@ -1,6 +1,13 @@
-# DPDPA Compliance Platform
+# DPDPA Compliance Platform — Community Edition
 
-A multi-tenant DPDP implementation and assessment application built with Next.js, React, TypeScript, Prisma, PostgreSQL and Auth.js. This is a development/testing project; the legal control library remains a draft.
+A multi-tenant DPDP implementation and assessment application built with Next.js, React, TypeScript, Prisma, PostgreSQL and Auth.js. The community edition is an early evaluation release for self-hosted assessment and audit-evidence workflows. The legal control library remains a draft; this is not a production-readiness or legal-compliance certification.
+
+## Community release resources
+
+- [Contributing](CONTRIBUTING.md) and [security reporting](SECURITY.md)
+- [Architecture and trust boundaries](docs/ARCHITECTURE.md)
+- [Fictional demonstration walkthrough](docs/DEMO.md)
+- [Release checklist](docs/RELEASE.md), [local validation results](docs/VALIDATION.md) and [changelog](CHANGELOG.md)
 
 ## Current features
 
@@ -34,6 +41,8 @@ npm run test:consent-isolation
 npm run dev
 ```
 
+Open http://localhost:3000 and register your first organisation. Use fictional data for evaluation. Verify the account using the development-server email link, or configure SMTP. No default administrator account is shipped. On Windows, use WSL2 for these shell commands. The Compose service supplies the database only; Node.js runs the application.
+
 Open http://localhost:3000. After initial setup, check types with `npm run typecheck`; check the production build with `npm run build`. SMTP is optional for local development: when absent, email links are printed to the development server console. Set SMTP for production email delivery.
 
 The supplied database credentials are local-development defaults, also shown in `.env.example`. Change them for hosted deployments and bind PostgreSQL only to the interfaces you intend to expose. Docker's initialisation SQL runs only for a fresh database volume; existing volumes retain their roles/passwords.
@@ -59,7 +68,7 @@ The controls are draft content for qualified legal review, including applicabili
 
 Commit the source, all Prisma migrations, `prisma/rls.sql`, control-library JSON files, tests, `package.json`, `package-lock.json` and `.env.example`. Exclude `.env` and other local environment files, private keys, database dumps, logs, uploads, `node_modules` and `.next`; the project `.gitignore` covers these common paths. Inspect staged files before pushing. If a secret was ever committed, removing the file or adding an ignore rule does not remove it from history.
 
-No Git repository has been initialised or pushed as part of this preparation. No licence has been selected; choose one before publishing if you intend to grant reuse rights.
+First-party project code is licensed under [Apache-2.0](LICENSE). Third-party dependencies retain their own licences. See [third-party review](docs/THIRD_PARTY.md). Apache-2.0 permits commercial use under its terms; this public version remains available under those terms even if later development becomes private. No paid edition or enterprise-only module is implemented by this release preparation.
 
 ## Business consent management
 
@@ -116,4 +125,4 @@ The app uses the Auth.js v5 API. `next-auth@1.x` cannot provide `next-auth/provi
 
 SMTP emails use the official Nodemailer `10.4.0` package under the npm alias `smtp-mailer`. This isolates the app's SMTP dependency from Auth.js v5's optional Nodemailer peer range (v7/v8). Auth.js is configured only with Credentials and does not use its optional email provider. Do not add its Nodemailer provider without checking compatibility with the supported patched mailer. Nodemailer 10 supplies its own types, so the older `@types/nodemailer` dependency is removed. File and URL attachment access are disabled in the SMTP transport defaults.
 
-After updating the source, stop the development server and run `npm install` to reconcile `package-lock.json` and install these dependencies. Do not use `npm ci` until that lockfile has been regenerated. Then run `npm run typecheck`, `npm run test:consent`, `npm run test:email`, `npm run build` and `npm audit`, and restart the development server. The email regression check uses a JSON transport and sends no real email; invitation, reset and consent-link delivery should also be exercised with your configured SMTP service. Commit the regenerated lockfile along with `package.json` and the source changes.
+When deliberately changing dependencies, stop the development server and run `npm install` to reconcile `package-lock.json`. The committed lockfile has been regenerated; use `npm ci` for a fresh checkout. Then run `npm run typecheck`, `npm run test:consent`, `npm run test:email`, `npm run build` and `npm audit`, and restart the development server. The email regression check uses a JSON transport and sends no real email; invitation, reset and consent-link delivery should also be exercised with your configured SMTP service. Commit the regenerated lockfile along with `package.json` and the source changes.
