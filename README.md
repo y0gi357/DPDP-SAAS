@@ -2,6 +2,9 @@
 
 A multi-tenant DPDP implementation and assessment application built with Next.js, React, TypeScript, Prisma, PostgreSQL and Auth.js. The community edition is an early evaluation release for self-hosted assessment and audit-evidence workflows. The legal control library remains a draft; this is not a production-readiness or legal-compliance certification.
 
+<img width="1327" height="772" alt="Screenshot 2026-11-12 015550" src="https://github.com/user-attachments/assets/71bcb804-9f25-4dc2-9251-a7857470c34d" />
+
+
 ## Documentation
 
 - [Contributing](CONTRIBUTING.md) and [security reporting](SECURITY.md)
