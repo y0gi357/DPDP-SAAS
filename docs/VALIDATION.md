@@ -17,4 +17,4 @@ Environment: Node.js 22.22.0, npm 9.2.0. These observations cover release prepar
 | npm audit --offline | Reported zero findings; offline result is not a current online advisory check |
 | GitHub access | Blocked: cannot resolve github.com |
 
-The history scan is heuristic and does not prove absence of secrets or private data. A complete third-party licence/notice review, clean installation, database isolation tests, runtime/browser walkthrough, backup/restore and current online dependency audit remain outstanding. No real customer database was modified or tested during preparation. Do not publish this as a fully validated production release.
+The history scan is heuristic and does not prove absence of secrets or private data. A complete third-party licence/notice review, clean installation, database isolation tests, runtime/browser walkthrough, backup/restore and current online dependency audit remain outstanding. No real customer database was modified or tested during preparation. 
