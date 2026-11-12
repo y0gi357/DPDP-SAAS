@@ -1,0 +1,11 @@
+import assert from "node:assert/strict";
+import { cleanPresentationText, nameEmail, sampleNames } from "../scripts/demo-presentation";
+assert.equal(cleanPresentationText("[DEMO] Customer Portal"), "Customer Portal");
+assert.equal(cleanPresentationText("Aditi Rao (fictional)"), "Aditi Rao");
+assert.equal(cleanPresentationText("FICTIONAL DEMO — not real evidence, approval, consent or notification. Own the access register."), "Own the access register.");
+assert.equal(cleanPresentationText("[SIMULATED DEMO] Lost laptop"), "Lost laptop");
+assert.equal(cleanPresentationText(cleanPresentationText("[DEMO] Payroll")), "Payroll");
+assert.equal(nameEmail("Sneha Pillai"), "sneha.pillai@testorg.example");
+assert.equal(new Set(sampleNames).size, sampleNames.length);
+assert.ok(sampleNames.every((name) => !/demo|fictional/i.test(name)));
+console.log("Presentation text cleanup, natural sample names and repeat-run checks passed.");

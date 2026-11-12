@@ -1,5 +1,6 @@
 import "dotenv/config";
 import { refreshExistingDemo } from "./demo-refresh";
+import { polishDemoPresentation } from "./demo-presentation";
 import { PrismaClient, type Prisma } from "@prisma/client";
 import { createHash } from "node:crypto";
 import { mkdirSync, writeFileSync } from "node:fs";
@@ -73,7 +74,7 @@ async function run() {
     ];
     const depIds: string[] = [], ownerIds: string[] = [];
     for (const [i, [name, head, ...functions]] of departments.entries()) {
-      const d = await tx.department.upsert({ where: { orgId_name: { orgId, name: `[DEMO] ${name}` } }, update: {}, create: { id: id(`dept-${i}`), orgId, name: `[DEMO] ${name}`, headName: `${head} (fictional)`, roles: ["OPERATIONAL_OWNER"] } });
+      const d = await tx.department.upsert({ where: { id: id(`dept-${i}`) }, update: {}, create: { id: id(`dept-${i}`), orgId, name: `[DEMO] ${name}`, headName: `${head} (fictional)`, roles: ["OPERATIONAL_OWNER"] } });
       depIds.push(d.id); ownerIds.push(`dept:${d.id}`);
       const existingPrimary = await tx.departmentContact.findFirst({ where: { orgId, departmentId: d.id, isPrimary: true } });
       for (const [j, subFunction] of functions.entries()) await tx.departmentContact.upsert({ where: { id: id(`contact-${i}-${j}`) }, update: {}, create: {
@@ -95,7 +96,7 @@ async function run() {
     const vendorNames = ["Nimbus Hosting", "PeopleSpring Payroll", "ReachLeaf Campaigns", "HelpHarbor Support", "LedgerBridge Billing", "VerifyTrail Screening"];
     const vendorIds: string[] = [];
     for (const [i, name] of vendorNames.entries()) {
-      const v = await tx.vendor.upsert({ where: { orgId_name: { orgId, name: `[DEMO] ${name}` } }, update: {}, create: {
+      const v = await tx.vendor.upsert({ where: { id: id(`vendor-${i}`) }, update: {}, create: {
         id: id(`vendor-${i}`), orgId, name: `[DEMO] ${name}`, type: ["Cloud Hosting", "HR / Payroll", "Marketing", "SaaS Platform", "Payment Processor", "Other"][i],
         service: `${marker} ${["Managed hosting and encrypted backups", "Payroll calculation and employee payslips", "Optional email campaigns", "Support ticket routing", "Invoice generation and reconciliation", "Candidate verification"][i]}`,
         role: "PROCESSOR", country: "India", riskTier: i === 5 ? "HIGH" : i % 2 ? "MEDIUM" : "LOW", lastReview: ago(20 + i),
@@ -121,7 +122,7 @@ async function run() {
     ];
     const orgProfile = await tx.organisation.findUniqueOrThrow({ where: { id: orgId } });
     for (const [i, a] of activities.entries()) {
-      const asset = await tx.dataAsset.upsert({ where: { orgId_name: { orgId, name: `[DEMO] ${a.app}` } }, update: {}, create: {
+      const asset = await tx.dataAsset.upsert({ where: { id: id(`asset-${i}`) }, update: {}, create: {
         id: id(`asset-${i}`), orgId, name: `[DEMO] ${a.app}`, type: a.type, description: `${marker} ${a.purpose}.`, departmentId: depIds[a.dep], ownerName: `${departments[a.dep][1]} (fictional)`,
         hostingLocation: "India — fictional Bengaluru primary / Mumbai recovery", hostedInIndia: true, storesPersonalData: true,
         sourcing: a.type === "SAAS" ? "OUTSOURCED" : "IN_HOUSE", vendorId: vendorIds[a.vendor], vendorAccess: "LIMITED_ACCESS", dataCategories: a.cats, piiFields: a.fields,
@@ -202,7 +203,10 @@ async function run() {
     } });
     const previousAudit = await tx.auditLog.findFirst({ where: { orgId, action: "demo.dataset_loaded", entityId: id("dataset") } });
     if (!previousAudit) await tx.auditLog.create({ data: { orgId, action: "demo.dataset_loaded", entity: "DemoDataset", entityId: id("dataset"), meta: { fictional: true, source: "SAMVAAD demo loader", externalActions: false } } });
-    if (refresh) await refreshExistingDemo(tx, orgId, now);
+    if (refresh) {
+      await refreshExistingDemo(tx, orgId, now);
+      await polishDemoPresentation(tx, orgId);
+    }
     console.log("Demo dataset loaded. Record IDs, passwords, memberships and immutable history were preserved. No emails sent; no external systems contacted. Refresh the app and select TestOrg. Generate PDF/DOCX reports from the Reports page.");
   }, { maxWait: 10_000, timeout: 120_000 });
 }

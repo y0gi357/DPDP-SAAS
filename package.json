@@ -17,7 +17,8 @@
     "test:email": "tsx tests/email.test.ts",
     "test:departments": "node --import tsx tests/departments.test.ts",
     "test:department-isolation": "node --import tsx scripts/test-department-isolation.ts",
-    "db:demo": "node --import tsx scripts/seed-demo.ts"
+    "db:demo": "node --import tsx scripts/seed-demo.ts",
+    "db:demo:refresh": "node --import tsx scripts/seed-demo.ts --apply --refresh-existing"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",

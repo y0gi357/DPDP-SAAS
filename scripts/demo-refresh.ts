@@ -124,7 +124,7 @@ export async function refreshExistingDemo(tx: Prisma.TransactionClient, orgId: s
   for (const purpose of purposes) if (!purpose.id.startsWith("demo-")) {
     const latest = purpose.notices[0];
     // Publish a new fictional version; never rewrite what earlier decisions referred to.
-    if (latest?.publishedBy === "DEMO_REFRESH") continue;
+    if (latest?.publishedBy === "DEMO_REFRESH" || latest?.publishedBy === "PRESENTATION_V1") continue;
     await tx.consentNotice.create({ data: { orgId, purposeId: purpose.id, version: (latest?.version || 0) + 1, title: demoLabel(latest?.title || purpose.key, "Optional processing"),
       description: `${DEMO_MARKER} A separate choice for this processing purpose.`, dataItems: ["Email", "Account reference"], language: "en", publishedBy: "DEMO_REFRESH", targets: purpose.targets,
       text: `${DEMO_MARKER}\nPurpose: ${latest?.title || purpose.key}. We use email and account reference only for this optional workflow. Decline or withdraw through the private portal. Contact privacy@testorg.example. Historical decisions remain linked to the notice originally displayed.`,
