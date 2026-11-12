@@ -1,5 +1,22 @@
 # Fictional demonstration
 
+## Populate the local TestOrg quickly
+
+After applying current migrations and seeding the control library, run:
+
+```bash
+npm run db:demo
+npm run db:demo -- --apply
+```
+
+The first command previews; the second inserts detailed fictional data into the existing TestOrg/Test Org on localhost. It refuses ambiguous names; set DEMO_ORG_ID to choose the exact tenant when required. A missing tenant, active library or department migration stops the load. No organisation or login account is created.
+
+The loader adds 8 departments with 24 sub-functions, 7 committee members, 6 vendors and their subprocessors, 10 linked application/RoPA/DPIA examples, mixed control assessments and remediation, 3 consent purposes with notice versions, 8 fictional customers with synthetic decisions, and 3 simulated incidents. Existing records and assessments are preserved; generated records use stable IDs so reruns do not duplicate them. Profile fields are filled only when empty. No emails or regulatory notifications are sent, external systems contacted, or live portal tokens created. Consent events are marked DEMO_SEED; approvals/evidence are expressly fictional. Existing notice settings are preserved if already configured.
+
+Before inserting, it writes a private tenant snapshot under ignored backups/. Also take a normal database backup if the instance matters; the snapshot is not an automatic restore tool. All database writes run in one transaction. Refresh the app, select TestOrg, and generate reports through the Reports page. Keep fictional labels visible in the recording.
+
+## Presentation walkthrough
+
 Use a disposable local environment with no real customer information. Do not publish a live admin session or development email tokens. Preflight migrations, RLS and controls seeding using README instructions.
 
 1. Register “Example Services Demo” with an address you control; verify using the development email link. Do not use a shared preset password.
