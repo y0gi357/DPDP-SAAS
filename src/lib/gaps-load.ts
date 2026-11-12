@@ -14,7 +14,7 @@ export async function loadGaps(s: { orgId: string; userId: string }) {
     Promise.all([
       tx.organisation.findUniqueOrThrow({ where: { id: s.orgId } }),
       tx.committeeMember.findMany({ orderBy: { name: "asc" } }),
-      tx.department.findMany({ orderBy: { name: "asc" } }),
+      tx.department.findMany({ orderBy: { name: "asc" }, include: { contacts: { orderBy: [{ isPrimary: "desc" }, { createdAt: "asc" }, { id: "asc" }] } } }),
       tx.dataAsset.findMany({ include: { _count: { select: { ropaLinks: true } }, department: true, vendor: true }, orderBy: { name: "asc" } }),
       tx.vendor.findMany({ include: { subProcessors: true, _count: { select: { assets: true, ropaLinks: true } } }, orderBy: { name: "asc" } }),
       tx.ropaRecord.findMany({ include: { department: true, assets: { include: { asset: true } }, vendors: { include: { vendor: true } } }, orderBy: { activity: "asc" } }),
@@ -58,6 +58,7 @@ export async function loadGaps(s: { orgId: string; userId: string }) {
   const trackingByKey = new Map(tracking.map((t) => [t.gapKey, t]));
   const ownerOptions = [
     ...departments.filter((d) => d.spocName).map((d) => ({ value: `dept:${d.id}`, label: `${d.spocName} - ${d.name}` })),
+    ...departments.flatMap((d) => d.contacts.filter((c) => c.name).map((c) => ({ value: `contact:${c.id}`, label: `${c.name} - ${d.name} / ${c.subFunction}` }))),
     ...committee.map((m) => ({ value: `member:${m.id}`, label: `${m.name} - Committee (${m.designation ?? "Member"})` })),
   ];
   return {

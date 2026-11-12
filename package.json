@@ -14,7 +14,9 @@
     "test:isolation": "tsx scripts/test-isolation.ts",
     "test:consent": "tsx tests/consent.test.ts && tsx tests/consent-service.test.ts && tsx tests/cm-readiness.test.ts",
     "test:consent-isolation": "tsx scripts/test-consent-isolation.ts",
-    "test:email": "tsx tests/email.test.ts"
+    "test:email": "tsx tests/email.test.ts",
+    "test:departments": "node --import tsx tests/departments.test.ts",
+    "test:department-isolation": "node --import tsx scripts/test-department-isolation.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",

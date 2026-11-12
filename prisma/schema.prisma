@@ -277,8 +277,31 @@ model Department {
   createdAt DateTime     @default(now())
   assets    DataAsset[]
   ropa      RopaRecord[]
+  roles     String[]     @default([])
+  contacts  DepartmentContact[]
 
   @@unique([orgId, name])
+  @@unique([id, orgId])
+  @@index([orgId])
+}
+
+model DepartmentContact {
+  id               String     @id @default(cuid())
+  orgId            String
+  departmentId     String
+  department       Department @relation(fields: [departmentId, orgId], references: [id, orgId], onDelete: Cascade)
+  subFunction      String
+  roles            String[]   @default([])
+  name             String
+  email            String?
+  designation      String?
+  phone            String?
+  responsibilities String?
+  isPrimary        Boolean    @default(false)
+  createdAt        DateTime   @default(now())
+
+  @@index([orgId])
+  @@index([departmentId, orgId])
 }
 
 model DataAsset {

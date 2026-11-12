@@ -2,6 +2,9 @@
 
 ## Unreleased — community release preparation
 
+- Department sub-functions with multiple SPOCs, role selections, primary contact and detailed contact fields.
+- Legacy SPOC backfill, tenant-isolated contacts, and roster-aware reports, remediation owners and gap checks.
+
 - Apache-2.0 licence and package metadata.
 - Contribution and security reporting instructions.
 - Architecture, fictional demo, third-party review and release checklist.

@@ -10,6 +10,7 @@ A multi-tenant DPDP implementation and assessment application built with Next.js
 - [Contributing](CONTRIBUTING.md) and [security reporting](SECURITY.md)
 - [Architecture and trust boundaries](docs/ARCHITECTURE.md)
 - [Fictional demonstration walkthrough](docs/DEMO.md)
+- [Departments, sub-functions and SPOCs](docs/DEPARTMENTS.md)
 - [Consent workflow and permissions](docs/CONSENT.md)
 - [Control-library and dependency maintenance](docs/MAINTENANCE.md)
 - [Validation results and known check failures](docs/VALIDATION.md)
@@ -17,7 +18,7 @@ A multi-tenant DPDP implementation and assessment application built with Next.js
 
 ## Current features
 
-- Organisation profiles, steering committees, departments and SPOCs
+- Organisation profiles, steering committees, departments, sub-functions and multiple SPOCs
 - Application/data-source inventory, vendors and sub-processors
 - RoPA, risk screening, DPIA review/approval and controls assessments
 - Gap detection and remediation, breach register and data-flow diagrams

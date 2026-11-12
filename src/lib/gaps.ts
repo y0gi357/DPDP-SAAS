@@ -24,7 +24,7 @@ export type GapInput = {
   now: Date;
   org: { isSDF: boolean; dpoEmail: string | null; grievanceEmail: string | null };
   committee: { designation: string | null }[];
-  departments: { id: string; name: string; spocName: string | null; spocEmail: string | null }[];
+  departments: { id: string; name: string; spocName: string | null; spocEmail: string | null; contacts?: { id: string; subFunction: string; name: string; email: string | null }[] }[];
   assets: { id: string; name: string; sourcing: string; vendorId: string | null; storesPersonalData: boolean; piiFieldCount: number; ropaCount: number }[];
   vendors: {
     id: string; name: string; hasContract: boolean; securityControls: string[]; breachClause: boolean;
@@ -142,6 +142,9 @@ export function detectGaps(i: GapInput): Gap[] {
   for (const d of i.departments) {
     if (!d.spocName) push({ key: `DEPT-${d.id}-SPOC`, scope: "Department", severity: "High", title: `Department "${d.name}" has no SPOC`, detail: "Each department needs one privacy contact.", recommendation: "Assign a SPOC with an email address.", href: "/departments" });
     else if (!d.spocEmail) push({ key: `DEPT-${d.id}-SPOCMAIL`, scope: "Department", severity: "Medium", title: `SPOC for "${d.name}" has no email address`, detail: "They cannot be reached for requests or incidents.", recommendation: "Add the SPOC's email.", href: "/departments" });
+    for (const c of d.contacts ?? []) {
+      if (!c.name || !c.email) push({ key: `DEPT-${d.id}-CONTACT-${c.id}`, scope: "Department", severity: !c.name ? "High" : "Medium", title: `Sub-function "${c.subFunction}" in "${d.name}" has an incomplete SPOC`, detail: "Each recorded sub-function needs a named contact and email.", recommendation: "Edit the department and complete the sub-function's SPOC details.", href: "/departments" });
+    }
   }
 
   // 7. Breach register (Sec 8(6), Rule 7). The 24h and 72h thresholds are working defaults for review.

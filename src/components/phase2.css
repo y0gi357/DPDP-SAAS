@@ -138,3 +138,10 @@ details.gap { padding: 12px 14px; margin-bottom: 8px; }
 .side a.navlink { display: block; padding: 6px 10px; border-radius: 8px; color: var(--text); font-size: 14px; }
 .side a.navlink:hover { background: var(--bg); }
 .side a.navlink.on { background: var(--accent); color: #fff; font-weight: 600; }
+
+.department-contact { border: 1px solid var(--border); border-radius: 10px; padding: 14px; margin: 12px 0; min-width: 0; }
+.department-roles { border: 0; padding: 0; margin: 12px 0; min-width: 0; }
+.department-roles legend, .department-contact > legend { font-size: 13px; color: var(--muted); }
+.department-table { overflow-x: auto; }
+.department-table table { min-width: 640px; }
+.department-table td { overflow-wrap: anywhere; }

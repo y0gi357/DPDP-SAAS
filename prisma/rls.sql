@@ -180,3 +180,12 @@ CREATE POLICY tenant_isolation ON "ConsentWithdrawalTask"
 GRANT SELECT, INSERT, UPDATE, DELETE ON "ConsentPurpose", "ConsentSubject", "ConsentWithdrawalTask" TO app_user;
 GRANT SELECT, INSERT ON "ConsentNotice", "ConsentEvent" TO app_user;
 REVOKE UPDATE, DELETE ON "ConsentNotice", "ConsentEvent" FROM app_user;
+
+-- Department contact roster; parent relationship includes orgId.
+ALTER TABLE "DepartmentContact" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE "DepartmentContact" FORCE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS tenant_isolation ON "DepartmentContact";
+CREATE POLICY tenant_isolation ON "DepartmentContact"
+ USING ("orgId" = nullif(current_setting('app.current_org', true), ''))
+ WITH CHECK ("orgId" = nullif(current_setting('app.current_org', true), ''));
+GRANT SELECT, INSERT, UPDATE, DELETE ON "DepartmentContact" TO app_user;

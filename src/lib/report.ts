@@ -1,3 +1,4 @@
+import { rolesLabel } from "./departments";
 // Builds one format-neutral document model; report-docx.ts and report-pdf.ts both render it.
 import type { Loaded } from "./snapshot";
 import { flowSnapshot } from "./snapshot";
@@ -80,7 +81,7 @@ export function buildReport(d: Loaded, now = new Date()): ReportModel {
   });
   S.push({
     title: "Departments and SPOCs",
-    blocks: raw.departments.length ? [{ kind: "table", head: ["Department", "Head", "SPOC", "SPOC email"], rows: raw.departments.map((x) => [x.name, dash(x.headName), dash(x.spocName), dash(x.spocEmail)]) }] : [{ kind: "p", text: "No departments recorded." }],
+    blocks: raw.departments.length ? [{ kind: "table", head: ["Department / Head", "Sub-function / Roles", "SPOC / Designation", "Email / Phone", "Responsibilities"], rows: raw.departments.flatMap((d) => d.contacts.length ? d.contacts.map((c) => [`${d.name} / ${dash(d.headName)}\n${rolesLabel(d.roles)}`, `${c.subFunction}\n${rolesLabel(c.roles)}`, `${c.name || "Not assigned"}${c.isPrimary ? " (Primary)" : ""}\n${dash(c.designation)}`, `${dash(c.email)}\n${dash(c.phone)}`, dash(c.responsibilities)]) : [[`${d.name} / ${dash(d.headName)}\n${rolesLabel(d.roles)}`, "No sub-functions", dash(d.spocName), dash(d.spocEmail), "-"]]) }] : [{ kind: "p", text: "No departments recorded." }],
   });
 
   // Inventory

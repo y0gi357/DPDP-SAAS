@@ -7,7 +7,7 @@ export type StepStatus = "done" | "progress" | "todo" | "na";
 export type FlowSnapshot = {
   org: { dpoEmail: string | null; grievanceEmail: string | null; handlesChildrenData: boolean; isSDF: boolean };
   committee: (string | null)[];
-  departments: { spocName: string | null; spocEmail: string | null }[];
+  departments: { spocName: string | null; spocEmail: string | null; contacts?: { name: string; email: string | null }[] }[];
   assets: { storesPersonalData: boolean; piiFieldCount: number; ropaCount: number }[];
   vendors: { hasContract: boolean; securityControlCount: number }[];
   ropaCount: number;
@@ -53,7 +53,7 @@ export function buildSteps(s: FlowSnapshot): Step[] {
 
   const orgDone = !!s.org.dpoEmail && !!s.org.grievanceEmail;
   const covered = COVERAGE.filter((c) => s.committee.some((d) => d && c.match.test(d))).length;
-  const spocsOk = s.departments.length > 0 && s.departments.every((d) => d.spocName && d.spocEmail);
+  const spocsOk = s.departments.length > 0 && s.departments.every((d) => d.spocName && d.spocEmail && (d.contacts ?? []).every((c) => c.name && c.email));
   const pdAssets = s.assets.filter((a) => a.storesPersonalData);
   const vendorsOk = s.vendors.length > 0 && s.vendors.every((v) => v.hasContract && v.securityControlCount > 0);
   const cmpValues = CMP_ITEMS.map((i) => s.consent.cmp[i.id]).filter(Boolean);
@@ -70,7 +70,7 @@ export function buildSteps(s: FlowSnapshot): Step[] {
     mk(2, "committee", 1, "DPDPA Committee", "/committee", "Organisation profile", "Roster and DPO", ["Sec 8(1)", "Sec 10(2)(a)"],
       { status: done(covered === COVERAGE.length, s.committee.length > 0), detail: `${s.committee.length} member(s), ${covered} of ${COVERAGE.length} key functions covered` }),
     mk(3, "departments", 1, "Departments & SPOCs", "/departments", "Committee owners", "Department register", ["Sec 8(1)"],
-      { status: done(spocsOk, s.departments.length > 0), detail: `${s.departments.length} department(s)${spocsOk ? ", all with a SPOC" : ", some without a SPOC"}` }),
+      { status: done(spocsOk, s.departments.length > 0), detail: `${s.departments.length} department(s)${spocsOk ? ", all contacts complete" : ", incomplete SPOC details"}` }),
     mk(4, "apps", 2, "Apps & Data Sources", "/apps", "Departments", "App inventory", ["Sec 8(5)"],
       { status: done(pdAssets.length > 0 && pdAssets.every((a) => a.piiFieldCount > 0), s.assets.length > 0), detail: `${s.assets.length} system(s), ${pdAssets.filter((a) => a.piiFieldCount === 0).length} without PII fields listed` }),
     mk(5, "vendors", 2, "Vendors & TPRM", "/vendors", "Applications", "Processor register", ["Sec 8(2)", "Rule 6(1)(f)"],
