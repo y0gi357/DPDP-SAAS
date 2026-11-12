@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { DiagramViewport } from "./DiagramViewport";
 import Link from "next/link";
 import { BANDS, EDGES, EXTERNALS, H, LABELS, NH, NW, PHASE4, REVIEW, STAGES, STORES, W, edgeState, phaseOfStage, stageState } from "@/lib/flow-layout";
 
@@ -43,8 +44,8 @@ export function FlowDiagram({ steps, nextN, initialSelected = null }: { steps: S
           </button>
         </div>
       </div>
-      <div className="card" style={{ overflowX: "auto", padding: 8 }}>
-        <svg className={`flowd${sel !== null ? " focus" : ""}`} viewBox={`0 0 ${W} ${H}`} style={{ minWidth: 720, width: "100%", height: "auto" }} role="group" aria-label="Implementation flow diagram">
+      <DiagramViewport label="Implementation flow">
+        <svg className={`flowd${sel !== null ? " focus" : ""}`} viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", height: "auto" }} role="group" aria-label="Implementation flow diagram">
           <defs>
             <marker id="flow-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" className="arrow" /></marker>
             <marker id="flow-arrow-hot" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" className="arrow hot" /></marker>
@@ -126,12 +127,12 @@ export function FlowDiagram({ steps, nextN, initialSelected = null }: { steps: S
             );
           })}
         </svg>
-        <div className="legend">
+      </DiagramViewport>
+      <div className="legend">
           <span><i className="dot done" /> Completed</span><span><i className="dot progress" /> In progress</span>
           <span><i className="dot todo" /> Not started</span><span><i className="dot na" /> Not applicable</span>
           <span><i className="dot sel" /> Selected stage</span><span><i className="dot ahead" /> Still to come</span>
           <span><i className="dot ext" /> External entity</span><span><i className="dot store" /> Data store</span>
-        </div>
       </div>
 
       <div className="card" aria-live="polite">

@@ -1,3 +1,4 @@
+import { DiagramViewport } from "@/components/DiagramViewport";
 import { requireSession } from "@/lib/session";
 import { loadFlowInput } from "@/lib/dfd-load";
 import { buildFlow, layoutFlow, renderSvg } from "@/lib/dfd";
@@ -29,7 +30,7 @@ export default async function Dfd({ searchParams }: { searchParams: Promise<{ de
       {flow.nodes.length === 0 ? (
         <div className="card empty">No flows yet. Add processing activities in the RoPA and link them to systems, a department and vendors.</div>
       ) : (
-        <div className="card dfd" style={{ overflow: "auto" }} dangerouslySetInnerHTML={{ __html: svg }} />
+        <DiagramViewport label="Data flow diagram" className="dfd" markup={svg} />
       )}
       <p className="muted" style={{ fontSize: 13 }}>Dashed red lines are cross-border flows. Hover a line or box for the activities and data categories. Vendors flagged "no DPA" or "abroad" and systems hosted outside India are marked on the node.</p>
     </>

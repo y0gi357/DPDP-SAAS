@@ -18,7 +18,7 @@ h1 { font-size: 22px; margin: 0 0 4px; } h2 { font-size: 16px; margin: 0 0 8px; 
 .side a:hover { background: var(--bg); }
 .side span.soon { color: var(--muted); opacity: .75; display: flex; justify-content: space-between; }
 .side .tag { font-size: 11px; border: 1px solid var(--border); border-radius: 99px; padding: 0 7px; }
-.main { flex: 1; padding: 28px; max-width: 1000px; }
+.main { flex: 1 1 0; min-width: 0; padding: clamp(16px, 2vw, 32px); }
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 14px; }
 .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
 .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
@@ -35,3 +35,16 @@ button.ghost { background: transparent; color: var(--text); border-color: var(--
 table { width: 100%; border-collapse: collapse; font-size: 14px; }
 td, th { text-align: left; padding: 8px; border-bottom: 1px solid var(--border); }
 .side .tag { white-space: nowrap; flex-shrink: 0; align-self: center; margin-left: 8px; }
+
+/* Let page content use the full workspace without forcing the flex shell wider. */
+.main > *, .field, .fields > * { min-width: 0; }
+.field input:not([type="checkbox"]):not([type="radio"]), .field select, .field textarea { width: 100%; min-width: 0; }
+@media (max-width: 1100px) {
+  .side { width: 220px; }
+}
+@media (max-width: 700px) {
+  .shell { flex-direction: column; }
+  .shell > .side { width: 100%; height: auto; position: static; border-right: 0; border-bottom: 1px solid var(--border); }
+  .main { flex-basis: auto; width: 100%; padding: 16px; }
+  .grid { grid-template-columns: minmax(0, 1fr); }
+}
