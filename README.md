@@ -81,6 +81,4 @@ Database development requirements are documented in [Contributing](CONTRIBUTING.
 
 The controls are draft content for qualified legal review, including applicability and commencement dates. This software does not establish legal compliance or Board registration as a Consent Manager. Consent withdrawal follow-up is manual. MFA, SSO, billing, automatic processor notifications, guardian verification and a production retention/deletion workflow are not implemented. Library upgrades that must preserve the current assessment view require assessment carry-forward by control code.
 
-## Licence
 
-First-party project code is licensed under [Apache-2.0](LICENSE). Third-party dependencies retain their own licences. See [third-party review](docs/THIRD_PARTY.md). See the licence for permissions and conditions.
