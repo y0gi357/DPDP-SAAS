@@ -1,4 +1,5 @@
 import "dotenv/config";
+import { refreshExistingDemo } from "./demo-refresh";
 import { PrismaClient, type Prisma } from "@prisma/client";
 import { createHash } from "node:crypto";
 import { mkdirSync, writeFileSync } from "node:fs";
@@ -9,11 +10,12 @@ import { autoNa } from "../src/lib/controls";
 
 const args = process.argv.slice(2);
 if (args.includes("--help")) {
-  console.log("npm run db:demo -- [--apply]\nPopulates only an existing local TestOrg/Test Org with clearly fictional records. Without --apply, previews only. Set DEMO_ORG_ID if names are ambiguous. Requires current migrations and active controls. No emails, user accounts or live portal tokens are created.");
+  console.log("npm run db:demo -- [--apply] [--refresh-existing]\nPopulates only an existing local TestOrg/Test Org with clearly fictional records. Without --apply, previews only. Set DEMO_ORG_ID if names are ambiguous. Requires current migrations and active controls. No emails, user accounts or live portal tokens are created. --refresh-existing standardises existing fictional data after a private backup; IDs, links and immutable history are kept, earlier customer links revoked.");
   process.exit(0);
 }
-if (args.some((a) => a !== "--apply")) throw new Error("Unknown argument; use --help.");
+if (args.some((a) => a !== "--apply" && a !== "--refresh-existing")) throw new Error("Unknown argument; use --help.");
 const apply = args.includes("--apply");
+const refresh = args.includes("--refresh-existing");
 const url = process.env.DIRECT_URL;
 if (!url) throw new Error("DIRECT_URL is required. No data was changed.");
 if (!["localhost", "127.0.0.1", "[::1]"].includes(new URL(url).hostname)) throw new Error("Demo loader is limited to a local database. No data was changed.");
@@ -38,6 +40,7 @@ async function run() {
     await tx.departmentContact.count({ where: { orgId } });
     console.log(`Target: ${org.name} (${orgId}). ${library.controls.length} active controls.`);
     console.log("Plan: 8 departments / 24 sub-functions, 7 committee members, 6 vendors + subprocessors, 10 applications, 10 linked RoPA/DPIAs, consent notices + 8 fictional customers, 3 simulated incidents and control/remediation examples.");
+    if (refresh) console.log("Refresh mode: rewrite existing TestOrg demo profile and mutable records, keep links/history, and revoke earlier fictional customer portal links.");
     if (!apply) { console.log("Preview only. Add --apply to populate this organisation."); return; }
     const id = (key: string) => "demo-" + createHash("sha256").update(`${orgId}:${key}`).digest("hex").slice(0, 28);
     const backup = { createdAt: now, organisation: org, tables: await Promise.all([
@@ -199,7 +202,8 @@ async function run() {
     } });
     const previousAudit = await tx.auditLog.findFirst({ where: { orgId, action: "demo.dataset_loaded", entityId: id("dataset") } });
     if (!previousAudit) await tx.auditLog.create({ data: { orgId, action: "demo.dataset_loaded", entity: "DemoDataset", entityId: id("dataset"), meta: { fictional: true, source: "SAMVAAD demo loader", externalActions: false } } });
-    console.log("Demo dataset loaded. Existing records, passwords and memberships were preserved. No emails sent; no external systems contacted. Refresh the app and select TestOrg. Generate PDF/DOCX reports from the Reports page.");
+    if (refresh) await refreshExistingDemo(tx, orgId, now);
+    console.log("Demo dataset loaded. Record IDs, passwords, memberships and immutable history were preserved. No emails sent; no external systems contacted. Refresh the app and select TestOrg. Generate PDF/DOCX reports from the Reports page.");
   }, { maxWait: 10_000, timeout: 120_000 });
 }
 run().catch((e) => { console.error(e instanceof Error ? e.message : "Demo load failed; database transaction rolled back."); process.exitCode = 1; }).finally(() => db.$disconnect());

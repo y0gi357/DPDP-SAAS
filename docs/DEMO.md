@@ -15,6 +15,18 @@ The loader adds 8 departments with 24 sub-functions, 7 committee members, 6 vend
 
 Before inserting, it writes a private tenant snapshot under ignored backups/. Also take a normal database backup if the instance matters; the snapshot is not an automatic restore tool. All database writes run in one transaction. Refresh the app, select TestOrg, and generate reports through the Reports page. Keep fictional labels visible in the recording.
 
+## Refresh earlier fictional entries for the same recording
+
+If TestOrg already contains manually entered demo data, run:
+
+```bash
+npm run db:demo -- --apply --refresh-existing
+```
+
+This explicitly rewrites existing fictional profile fields, contacts, vendor reviews, application details, RoPA checklists, DPIA narratives, assessments, remediation notes, consent configuration and incident descriptions to the same scenario. IDs and links are retained; existing names of departments, apps, vendors and activities are kept so they remain recognisable. Extra earlier entries are enriched, not deleted or merged. Login users, passwords and organisation memberships are unchanged. A private pre-change tenant snapshot is saved first and database changes share one transaction.
+
+Earlier fictional customer contact details become reserved-domain addresses and their previous portal links are revoked. Existing published notices and decision/audit history are not rewritten: a new fictional notice version is published for an earlier purpose where necessary. Synthetic data stays visibly labelled in the interface and exports. Use this mode only for the TestOrg data you have confirmed is fictional.
+
 ## Presentation walkthrough
 
 Use a disposable local environment with no real customer information. Do not publish a live admin session or development email tokens. Preflight migrations, RLS and controls seeding using README instructions.
