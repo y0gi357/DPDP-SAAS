@@ -6,7 +6,13 @@ const nextConfig = {
   poweredByHeader: false,
   turbopack: { root },
   outputFileTracingRoot: root,
-  allowedDevOrigins: ["192.168.40.128"],
+  // Hostnames only: these allow LAN clients to load development assets and HMR.
+  // Add another address through DEV_ALLOWED_ORIGINS when the local IP changes.
+  allowedDevOrigins: [...new Set([
+    "192.168.1.6",
+    "192.168.40.128",
+    ...(process.env.DEV_ALLOWED_ORIGINS ?? "").split(",").map((host) => host.trim()).filter(Boolean),
+  ])],
   async headers() {
     return [
       {

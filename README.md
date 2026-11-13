@@ -53,6 +53,12 @@ The supplied database credentials are local-development defaults, also shown in 
 
 `npm run db:migrate` creates development migrations and re-applies RLS. For an existing environment, deploy committed migrations with `npx prisma migrate deploy`, followed by `npm run db:rls`. The default seed selects `v1.1-draft`; it is active only after a successful seed run. First-time activation of a new library version starts a fresh assessment view.
 
+### Access from another device on the local network
+
+Run `npm run dev -- --hostname 0.0.0.0` and browse to the host's network address, for example `http://192.168.1.6:3000`. The development origin allowlist includes that address. If the host IP changes, add `DEV_ALLOWED_ORIGINS="your-new-ip"` to `.env` (hostnames/IPs only, comma-separated, without a scheme or port), then restart the development server and reload the browser. Blocked development assets can leave a page visible while JavaScript controls do not respond.
+
+Use the network address as `APP_URL` when email links must open on other devices. Sign in separately on the network address; localhost and LAN hosts do not share cookies. This setup is for local development; see the deployment guidance before hosting publicly.
+
 ## Verification
 
 Run checks after setup:
