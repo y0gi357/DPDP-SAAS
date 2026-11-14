@@ -13,8 +13,11 @@ A multi-tenant DPDP implementation and assessment application built with Next.js
 - [Departments, sub-functions and SPOCs](docs/DEPARTMENTS.md)
 - [Consent workflow and permissions](docs/CONSENT.md)
 - [Control-library and dependency maintenance](docs/MAINTENANCE.md)
-- [Validation results and known check failures](docs/VALIDATION.md)
+- [Validation results and known check failures](docs/VALIDATION.md
 - [Maintainer release checklist](docs/RELEASE.md) and [changelog](CHANGELOG.md)
+
+## Walkthrough of Anumati
+
 
 ## Current features
 
