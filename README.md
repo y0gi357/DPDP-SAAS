@@ -1,4 +1,4 @@
-# DPDPA Compliance Platform — Community Edition
+# Anumati(a DPDPA Compliance Platform) — Community Edition
 
 A multi-tenant DPDP implementation and assessment application built with Next.js, React, TypeScript, Prisma, PostgreSQL and Auth.js. The community edition is an early evaluation release for self-hosted assessment and audit-evidence workflows. The legal control library remains a draft; this is not a production-readiness or legal-compliance certification.
 
