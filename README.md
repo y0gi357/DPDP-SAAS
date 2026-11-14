@@ -18,6 +18,8 @@ A multi-tenant DPDP implementation and assessment application built with Next.js
 
 ## Walkthrough of Anumati
 
+Watch the walkthrough of Anumati to understand how the platform works 
+https://youtu.be/cM3osu9c77M
 
 ## Current features
 
